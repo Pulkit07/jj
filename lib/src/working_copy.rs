@@ -246,12 +246,12 @@ impl TreeState {
         } else if metadata_file_type.is_symlink() {
             FileType::Symlink
         } else {
-            let mode = metadata.permissions().mode();
-            if mode & 0o111 != 0 {
-                FileType::Executable
-            } else {
-                FileType::Normal
-            }
+            FileType::Normal
+            // let mode = metadata.permissions().mode();
+            // if mode & 0o111 != 0 {
+            //     FileType::Executable
+            // } else {
+            // }
         };
         Some(FileState {
             file_type,
@@ -381,7 +381,7 @@ impl TreeState {
         create_parent_dirs(disk_path);
         #[cfg(windows)]
         {
-            unimplemented!();
+            // unimplemented!();
         }
         #[cfg(not(windows))]
         {
@@ -394,7 +394,7 @@ impl TreeState {
 
     fn set_executable(&self, disk_path: &PathBuf, executable: bool) {
         let mode = if executable { 0o755 } else { 0o644 };
-        fs::set_permissions(disk_path, fs::Permissions::from_mode(mode)).unwrap();
+        // fs::set_permissions(disk_path, fs::Permissions::from_mode(mode)).unwrap();
     }
 
     pub fn check_out(&mut self, tree_id: TreeId) -> Result<CheckoutStats, CheckoutError> {
